@@ -1,0 +1,25 @@
+.App {
+  flex-grow: 1;
+
+  &__name {
+    flex-grow: 1;
+  }
+
+  &__bar {
+    z-index: 1300;
+  }
+
+  &__drawer {
+    width: 240px;
+    position: relative;
+    white-space: nowrap;
+
+    &--open {
+
+    }
+
+    &--hide {
+      overflow-x: hidden;
+    }
+  }
+}

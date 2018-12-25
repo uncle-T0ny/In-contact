@@ -44,3 +44,12 @@ npm run local
 cd front
 npm run local
 ```
+
+
+## TODO
+- improve the contact list
+- update delete operations with the contacts
+- create docker container for application fast-run
+- add tests for sagas
+- create routes structure
+- add fields validations

@@ -117,6 +117,18 @@ const init = async () => {
       }
     },
     {
+      method: 'GET',
+      path: '/contacts',
+      config: { auth: 'jwt' },
+      handler: async function (request, h) {
+        const { userId } = request.auth.credentials;
+        const user = await User.findOne({ where: { id: userId } });
+
+        const contacts = await user.getContacts();
+        return h.response({ contacts });
+      }
+    },
+    {
       method: 'PUT',
       path: '/contacts',
       config: { auth: 'jwt' },

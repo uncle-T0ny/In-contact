@@ -15,7 +15,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import AppBar from './appBar/AppBar';
-import ContactList from '../../components/contacts/ContactList';
 import Contacts from '../../components/contacts/Contacts';
 import { openModal, closeModal, triggerDrawer } from '../../ducks/app.duck';
 import { checkAuth } from '../../ducks/auth.duck';
@@ -76,8 +75,8 @@ class Main extends React.PureComponent {
           <Contacts/>
 
           { !creatingContact && (
-            <Fab color="primary" aria-label="Add" className={classes.fab}>
-              <AddIcon onClick={() => actions.openNewContactForm() }/>
+            <Fab onClick={() => actions.openNewContactForm()} color="primary" aria-label="Add" className={classes.fab}>
+              <AddIcon />
             </Fab>
           )}
 

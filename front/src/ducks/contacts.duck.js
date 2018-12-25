@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { takeEvery, select } from 'redux-saga/effects';
+import { takeEvery, select, put } from 'redux-saga/effects';
 import { ServerAPI } from "../api/ServerAPI";
 
 export const UPDATE_STATE = 'UPDATE_STATE';
@@ -9,16 +9,13 @@ export const CLOSE_NEW_CONTACT_FORM = 'CLOSE_NEW_CONTACT_FORM';
 export const CREATE_CONTACT = 'CREATE_CONTACT';
 
 export const updateState = createAction(UPDATE_STATE);
-export const userContactsRequest = createAction(FETCH_USER_CONTACTS);
+export const fetchUserContacts = createAction(FETCH_USER_CONTACTS);
 export const openNewContactForm = createAction(OPEN_NEW_CONTACT_FORM);
 export const closeNewContactForm = createAction(CLOSE_NEW_CONTACT_FORM);
 export const createContact = createAction(CREATE_CONTACT);
 
 const initialState = {
-  list: [
-    { name: 'Andrew' },
-    { name: 'Daniel' }
-  ],
+  list: [],
   creatingContact: false,
   firstName: '',
   lastName: '',
@@ -46,20 +43,30 @@ export default function contactsReducer(state = initialState, { type, payload })
 }
 
 export function* createContactSaga() {
-  const { firstName, lastName, phone, town, postcode, street, build, apartment, state, country } = yield select((state) => (state.contacts));
+  const { firstName, lastName, phone, town, postcode, street, build, apartment, state, country, list } = yield select((state) => (state.contacts));
 
   try {
-    let { contactId } = yield ServerAPI.contacts.create({
+    const newContact = {
       firstName, lastName, phone, town, postcode, street, build, apartment, state, country
-    });
-    console.log('Created contact ', contactId)
+    };
+    let { contactId } = yield ServerAPI.contacts.create(newContact);
+
+    newContact.id = contactId;
+
+    yield put({ type: UPDATE_STATE, payload: { list: [...list, newContact], creatingContact: false }});
   } catch (err) {
     console.log(err);
   }
 }
 
+export function* fetchContactsSaga() {
+  let { contacts } = yield ServerAPI.contacts.get();
+  yield put({ type: UPDATE_STATE, payload: { list: contacts }});
+}
+
 export function* watchContactsSagas() {
   yield [
     takeEvery(CREATE_CONTACT, createContactSaga),
+    takeEvery(FETCH_USER_CONTACTS, fetchContactsSaga),
   ];
 }

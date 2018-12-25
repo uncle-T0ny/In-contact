@@ -3,6 +3,7 @@ import { takeEvery, put } from 'redux-saga/effects';
 import { ServerAPI } from '../api/ServerAPI';
 import { LocalStorageAPI } from '../api/LocalStorageAPI';
 import { closeModal } from './app.duck';
+import { loadInitialState, fetchUserContacts } from './contacts.duck';
 
 export const UPDATE_STATE = 'UPDATE_STATE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -35,10 +36,10 @@ export default function appReducer(state = initialState, { type, payload }) {
 
 export function* signUpSaga({ payload }) {
   const { email, password } = payload;
-
   let { token } = yield ServerAPI.auth.signUp(email, password);
-
   LocalStorageAPI.saveAuthToken(token);
+  yield put({ type: UPDATE_STATE, payload: { loggedIn: true } });
+  yield put(closeModal());
 }
 
 export function* signInSaga({ payload }) {
@@ -48,6 +49,7 @@ export function* signInSaga({ payload }) {
     LocalStorageAPI.saveAuthToken(token);
     yield put({ type: UPDATE_STATE, payload: { loggedIn: true } });
     yield put(closeModal());
+    yield put(fetchUserContacts());
   } catch (err) {
     console.log(err)
   }
@@ -72,6 +74,7 @@ export function* logOutSaga() {
   yield ServerAPI.auth.logOut();
   LocalStorageAPI.saveAuthToken(null);
   yield put({ type: UPDATE_STATE, payload: { loggedIn: false } });
+  yield put(loadInitialState());
 }
 
 export function* watchAuthSagas() {

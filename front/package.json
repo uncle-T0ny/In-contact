@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.7.1",
     "@material-ui/icons": "^3.0.1",
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
@@ -13,7 +14,6 @@
     "react-scripts": "2.1.2",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
-    "redux-devtools-extension": "^2.13.7",
     "redux-saga": "^0.16.2"
   },
   "scripts": {

@@ -1,0 +1,32 @@
+{
+  "name": "back",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/server/Server.js",
+  "scripts": {
+    "// main": "main",
+    "local": "npm run migrate && npm run http",
+    "http": "node src/server/Server.js",
+    "// migrations": "migrations-block",
+    "migrate": "node_modules/.bin/sequelize db:migrate --env default",
+    "migrate-undo": "node_modules/.bin/sequelize db:migrate:undo --env default",
+    "migrate-undo-all": "node_modules/.bin/sequelize db:migrate:undo:all --env default",
+    "migrate-status": "node_modules/.bin/sequelize db:migrate:status --env default",
+    "migrate-generate": "docs/sequelize/copy.template.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "cls-bluebird": "2.0.1",
+    "cls-hooked": "4.2.2",
+    "config": "^3.0.1",
+    "hapi": "^17.8.1",
+    "hapi-auth-jwt2": "^8.2.0",
+    "jsonwebtoken": "^8.4.0",
+    "pg": "^7.7.1",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  }
+}

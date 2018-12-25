@@ -1,0 +1,15 @@
+{
+  "authSecret": "AUTH_SECRET",
+  "db": {
+    "enabled": "DB_ENABLED",
+    "checkOnStartUp": "DB_CHECK_ON_START_UP",
+    "databaseUrl": "DB_DATABASE_URL",
+    "host": "DB_DATABASE_HOST",
+    "port": "DB_DATABASE_PORT",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE",
+    "dialect": "DB_DIALECT",
+    "logging": "DB_LOGGING"
+  }
+}

@@ -48,7 +48,8 @@ class SignUpForm extends PureComponent {
           variant="outlined"
         />
 
-        <Button onClick={() => actions.signUpRequest({ email, password })} variant="contained" color="primary" className={classes.button}>
+        <Button onClick={() => actions.signUpRequest({ email, password })} variant="contained" color="primary"
+                className={classes.button}>
           signup
         </Button>
       </div>

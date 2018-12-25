@@ -25,10 +25,6 @@ class Countries extends Model {
       }
     ];
   }
-
-  static async getCountryCodes() {
-    return Object.keys(countryCodes2Name);
-  }
 }
 
 module.exports = Countries;

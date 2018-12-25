@@ -46,7 +46,7 @@ export function* signInSaga({ payload }) {
   try {
     let { token } = yield ServerAPI.auth.signIn(email, password);
     LocalStorageAPI.saveAuthToken(token);
-    yield put({ type: UPDATE_STATE, payload: { loggedIn: true }});
+    yield put({ type: UPDATE_STATE, payload: { loggedIn: true } });
     yield put(closeModal());
   } catch (err) {
     console.log(err)
@@ -56,7 +56,7 @@ export function* signInSaga({ payload }) {
 export function* checkAuthTokenSaga() {
   try {
     let { isAuthenticated } = yield ServerAPI.auth.check();
-    yield put({ type: UPDATE_STATE, payload: { loggedIn: isAuthenticated }});
+    yield put({ type: UPDATE_STATE, payload: { loggedIn: isAuthenticated } });
 
     if (!isAuthenticated) {
       LocalStorageAPI.saveAuthToken(null);
@@ -71,7 +71,7 @@ export function* checkAuthTokenSaga() {
 export function* logOutSaga() {
   yield ServerAPI.auth.logOut();
   LocalStorageAPI.saveAuthToken(null);
-  yield put({ type: UPDATE_STATE, payload: { loggedIn: false }});
+  yield put({ type: UPDATE_STATE, payload: { loggedIn: false } });
 }
 
 export function* watchAuthSagas() {

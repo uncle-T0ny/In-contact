@@ -17,11 +17,11 @@ const initialState = {
 export default function appReducer(state = initialState, { type, payload }) {
   switch (type) {
     case TRIGGER_DRAWER:
-      return { ...state, ...{ drawerOpen: !state.drawerOpen }};
+      return { ...state, ...{ drawerOpen: !state.drawerOpen } };
     case OPEN_MODAL:
-      return { ...state, ...{ modalOpen: true, popupContent: payload.content }};
+      return { ...state, ...{ modalOpen: true, popupContent: payload.content } };
     case CLOSE_MODAL:
-      return { ...state, ...{ modalOpen: false, popupContent: null }};
+      return { ...state, ...{ modalOpen: false, popupContent: null } };
     default:
       return state;
   }

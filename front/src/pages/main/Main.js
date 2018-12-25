@@ -51,7 +51,7 @@ class Main extends React.PureComponent {
       <div className={classes.root}>
         <CssBaseline/>
 
-        <AppBar />
+        <AppBar/>
 
         {/* Drawer, left menu */}
         <Drawer
@@ -74,9 +74,9 @@ class Main extends React.PureComponent {
         <main className={classes.content}>
           <Contacts/>
 
-          { !creatingContact && (
+          {!creatingContact && (
             <Fab onClick={() => actions.openNewContactForm()} color="primary" aria-label="Add" className={classes.fab}>
-              <AddIcon />
+              <AddIcon/>
             </Fab>
           )}
 
@@ -90,7 +90,7 @@ class Main extends React.PureComponent {
           onClose={() => actions.closeModal()}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            { popupContent }
+            {popupContent}
           </div>
         </Modal>
       </div>

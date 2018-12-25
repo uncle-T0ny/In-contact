@@ -8,9 +8,9 @@ export const mainListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <PeopleIcon/>
       </ListItemIcon>
-      <ListItemText primary="Contacts" />
+      <ListItemText primary="Contacts"/>
     </ListItem>
   </div>
 );

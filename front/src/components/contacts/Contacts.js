@@ -18,10 +18,10 @@ class Contacts extends PureComponent {
     const { classes, creatingContact } = this.props;
     return (
       <div className={classes.container}>
-        { creatingContact && (
-          <ContactForm />
+        {creatingContact && (
+          <ContactForm/>
         )}
-        <ContactList />
+        <ContactList/>
       </div>
     );
   }

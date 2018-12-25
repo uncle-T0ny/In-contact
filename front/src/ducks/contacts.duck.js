@@ -53,7 +53,7 @@ export function* createContactSaga() {
 
     newContact.id = contactId;
 
-    yield put({ type: UPDATE_STATE, payload: { list: [...list, newContact], creatingContact: false }});
+    yield put({ type: UPDATE_STATE, payload: { list: [...list, newContact], creatingContact: false } });
   } catch (err) {
     console.log(err);
   }
@@ -61,7 +61,7 @@ export function* createContactSaga() {
 
 export function* fetchContactsSaga() {
   let { contacts } = yield ServerAPI.contacts.get();
-  yield put({ type: UPDATE_STATE, payload: { list: contacts }});
+  yield put({ type: UPDATE_STATE, payload: { list: contacts } });
 }
 
 export function* watchContactsSagas() {

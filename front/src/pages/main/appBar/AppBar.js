@@ -37,44 +37,44 @@ class AppBar extends React.PureComponent {
 
     return (
       <AppBarMaterial
-          position="absolute"
-          className={cn(classes.appBar, drawerOpen && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!drawerOpen} className={classes.toolbar}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={() => actions.triggerDrawer()}
-              className={cn(
-                classes.menuButton,
-                drawerOpen && classes.menuButtonHidden,
-              )}
-            >
-              <MenuIcon/>
-            </IconButton>
+        position="absolute"
+        className={cn(classes.appBar, drawerOpen && classes.appBarShift)}
+      >
+        <Toolbar disableGutters={!drawerOpen} className={classes.toolbar}>
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={() => actions.triggerDrawer()}
+            className={cn(
+              classes.menuButton,
+              drawerOpen && classes.menuButtonHidden,
+            )}
+          >
+            <MenuIcon/>
+          </IconButton>
 
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              InContact
-            </Typography>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
+            InContact
+          </Typography>
 
-            { !loggedIn &&
-            <Fragment>
-              <Button onClick={() => actions.openModal({ content: <SignInForm/>})} color="inherit">Sign in</Button>
-              <Button onClick={() => actions.openModal({ content: <SignUpForm/>})} color="inherit">Sign up</Button>
-            </Fragment>
-            }
+          {!loggedIn &&
+          <Fragment>
+            <Button onClick={() => actions.openModal({ content: <SignInForm/> })} color="inherit">Sign in</Button>
+            <Button onClick={() => actions.openModal({ content: <SignUpForm/> })} color="inherit">Sign up</Button>
+          </Fragment>
+          }
 
-            {loggedIn &&
-              <Button onClick={() => actions.logOut()} color="inherit">Log out</Button>
-            }
-          </Toolbar>
-        </AppBarMaterial>
+          {loggedIn &&
+          <Button onClick={() => actions.logOut()} color="inherit">Log out</Button>
+          }
+        </Toolbar>
+      </AppBarMaterial>
     );
   }
 }

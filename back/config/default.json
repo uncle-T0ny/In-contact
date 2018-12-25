@@ -3,7 +3,6 @@
   "db": {
     "enabled": true,
     "checkOnStartUp": true,
-    "databaseUrl": "postgresql://root:root@localhost:3307/inconnect",
     "host": "127.0.0.1",
     "port": 5432,
     "username": "rant",

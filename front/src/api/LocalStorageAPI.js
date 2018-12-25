@@ -5,7 +5,7 @@ export const LocalStorageAPI = {
   saveAuthToken(token) {
     window.localStorage.setItem(AUTH_TOKEN, token);
   },
-  getAuthToken(token) {
+  getAuthToken() {
     return window.localStorage[AUTH_TOKEN];
   }
 };

@@ -45,6 +45,10 @@ class User extends Model {
       }
     ];
   }
+
+  static associate(models) {
+    User.hasMany(models.Contact, { as: 'Contacts', foreignKey: 'userId', onDelete: 'cascade' });
+  }
 }
 
 module.exports = User;

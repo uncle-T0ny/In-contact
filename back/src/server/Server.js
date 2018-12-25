@@ -3,7 +3,7 @@ const Hapi = require('hapi');
 const jwt = require('jsonwebtoken');
 
 const db = require('../db');
-const { User } = db.models;
+const { User, Contact } = db.models;
 
 
 function generateToken(req, GUID, opts) {
@@ -13,6 +13,7 @@ function generateToken(req, GUID, opts) {
 
   const token = jwt.sign({
     auth: GUID,
+    userId: opts.userId,
     agent: req.headers['user-agent']
   }, config.authSecret, { expiresIn: opts.expires || expiresDefault });
 
@@ -83,9 +84,9 @@ const init = async () => {
         const email = request.payload.email.toLowerCase();
         const { password } = request.payload;
 
-        const token = generateAndStoreToken(request);
+        const user = await User.create({ email, password });
 
-        await User.create({ email, password });
+        const token = generateAndStoreToken(request, { userId: user.id });
 
         return h.response({ token });
       }
@@ -100,7 +101,7 @@ const init = async () => {
 
         const user = await User.findOne({ where: { email, password } });
         if (user) {
-          const token = generateAndStoreToken(request);
+          const token = generateAndStoreToken(request, { userId: user.id });
           return h.response({ token });
         }
 
@@ -116,28 +117,22 @@ const init = async () => {
       }
     },
     {
-      method: 'POST',
+      method: 'PUT',
       path: '/contacts',
-      config: { auth: false },
+      config: { auth: 'jwt' },
       handler: async function (request, h) {
-        const email = request.payload.email.toLowerCase();
-        const { password } = request.payload;
+        const { userId } = request.auth.credentials;
+        const user = await User.findOne({ where: { id: userId } });
 
-        const token = generateAndStoreToken(request);
-        console.log(`User ${email} received token: ${token}`);
-
-        await User.create({ email, password });
-
-        return h.response({ token });
+        const contact = await user.createContact(request.payload);
+        return h.response({ contactId: contact.id });
       }
     }
   ]);
 
-
   server.events.on({ name: 'request', channels: 'error' }, (request, event, tags) => {
     console.log('error', event.error);
   });
-
 
   await server.start();
   return server;

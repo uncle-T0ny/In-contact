@@ -82,6 +82,13 @@ export const styles = theme => ({
   h5: {
     marginBottom: theme.spacing.unit * 2,
   },
+  fab: {
+    margin: theme.spacing.unit,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    zIndex: 2000
+  },
 });
 
 export const getModalStyle = () => {

@@ -35,17 +35,11 @@ class Contact extends Model {
         // address
         town: {
           type: DataTypes.STRING(36),
-          allowNull: true,
-          validate: {
-            notEmpty: true
-          }
+          allowNull: true
         },
         postcode: {
           type: DataTypes.STRING(30),
-          allowNull: true,
-          validate: {
-            notEmpty: true
-          }
+          allowNull: true
         },
         street: {
           type: DataTypes.STRING(32),

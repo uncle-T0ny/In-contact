@@ -13,7 +13,6 @@ function mapStateToProps(state) {
 
 class ContactList extends PureComponent {
   render() {
-    console.log(this.props);
     return (
       <List component="nav">
         <ListItem button>

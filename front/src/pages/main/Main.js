@@ -11,11 +11,15 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Modal from '@material-ui/core/Modal';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 import AppBar from './appBar/AppBar';
 import ContactList from '../../components/contacts/ContactList';
+import Contacts from '../../components/contacts/Contacts';
 import { openModal, closeModal, triggerDrawer } from '../../ducks/app.duck';
 import { checkAuth } from '../../ducks/auth.duck';
+import { openNewContactForm } from '../../ducks/contacts.duck';
 import { mainListItems } from './listItems';
 import { styles, getModalStyle } from './styles';
 
@@ -24,13 +28,14 @@ function mapStateToProps(state) {
   return {
     modalOpen: state.app.modalOpen,
     drawerOpen: state.app.drawerOpen,
-    popupContent: state.app.popupContent
+    popupContent: state.app.popupContent,
+    creatingContact: state.contacts.creatingContact
   };
 }
 
 function mapActionsToProps(state, r) {
   return {
-    actions: bindActionCreators({ openModal, closeModal, triggerDrawer, checkAuth }, r.dispatch)
+    actions: bindActionCreators({ openModal, closeModal, triggerDrawer, checkAuth, openNewContactForm }, r.dispatch)
   }
 }
 
@@ -41,7 +46,7 @@ class Main extends React.PureComponent {
   }
 
   render() {
-    const { classes, modalOpen, drawerOpen, popupContent, actions } = this.props;
+    const { classes, modalOpen, drawerOpen, popupContent, creatingContact, actions } = this.props;
 
     return (
       <div className={classes.root}>
@@ -68,7 +73,14 @@ class Main extends React.PureComponent {
         </Drawer>
 
         <main className={classes.content}>
-          <ContactList/>
+          <Contacts/>
+
+          { !creatingContact && (
+            <Fab color="primary" aria-label="Add" className={classes.fab}>
+              <AddIcon onClick={() => actions.openNewContactForm() }/>
+            </Fab>
+          )}
+
         </main>
 
         {/* General modal */}

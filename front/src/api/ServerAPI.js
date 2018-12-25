@@ -29,11 +29,11 @@ export const ServerAPI = {
   },
 
   contacts: {
-    getContacts() {
+    get() {
       return axios.get(`${SERVER_URL}/contacts`, getAuthHeader()).then((res) => res.data);
     },
-    createContact(data) {
-      return axios.post(`${SERVER_URL}/contacts`, data, getAuthHeader()).then((res) => res.data);
+    create(data) {
+      return axios.put(`${SERVER_URL}/contacts`, data, getAuthHeader()).then((res) => res.data);
     },
   }
 };

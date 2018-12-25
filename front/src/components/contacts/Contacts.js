@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from "@material-ui/core";
 
-import ContactList from './ContactList';
+import ContactList from './contactList/ContactList';
 import ContactForm from './contactForm/ContactForm';
 import { styles } from './styles';
 import { compose } from "redux";

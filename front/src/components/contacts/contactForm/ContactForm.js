@@ -45,13 +45,8 @@ class ContactForm extends PureComponent {
     return (
       <div className={classes.root}>
         <ExpansionPanel defaultExpanded>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <div className={classes.column}>
-              <Typography className={classes.heading}>Location</Typography>
-            </div>
-            <div className={classes.column}>
-              <Typography className={classes.secondaryHeading}>Select trip destination</Typography>
-            </div>
+          <ExpansionPanelSummary>
+            Create new contact
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <Grid container spacing={24}>

@@ -35,5 +35,8 @@ export const ServerAPI = {
     create(data) {
       return axios.put(`${SERVER_URL}/contacts`, data, getAuthHeader()).then((res) => res.data);
     },
+    delete(id) {
+      return axios.delete(`${SERVER_URL}/contacts/${id}`, getAuthHeader()).then((res) => res.data);
+    },
   }
 };

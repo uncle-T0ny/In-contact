@@ -62,6 +62,8 @@ export function* checkAuthTokenSaga() {
 
     if (!isAuthenticated) {
       LocalStorageAPI.saveAuthToken(null);
+    } else {
+      yield put(fetchUserContacts());
     }
   } catch (err) {
     console.log(err);

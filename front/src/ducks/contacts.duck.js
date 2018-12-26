@@ -7,6 +7,7 @@ export const FETCH_USER_CONTACTS = 'FETCH_USER_CONTACTS';
 export const OPEN_NEW_CONTACT_FORM = 'OPEN_NEW_CONTACT_FORM';
 export const CLOSE_NEW_CONTACT_FORM = 'CLOSE_NEW_CONTACT_FORM';
 export const CREATE_CONTACT = 'CREATE_CONTACT';
+export const DELETE_CONTACT = 'DELETE_CONTACT';
 export const LOAD_INITIAL_STATE = 'LOAD_INITIAL_STATE';
 
 export const updateState = createAction(UPDATE_STATE);
@@ -14,6 +15,7 @@ export const fetchUserContacts = createAction(FETCH_USER_CONTACTS);
 export const openNewContactForm = createAction(OPEN_NEW_CONTACT_FORM);
 export const closeNewContactForm = createAction(CLOSE_NEW_CONTACT_FORM);
 export const createContact = createAction(CREATE_CONTACT);
+export const deleteContact = createAction(DELETE_CONTACT);
 export const loadInitialState = createAction(LOAD_INITIAL_STATE);
 
 const initialState = {
@@ -63,6 +65,19 @@ export function* createContactSaga() {
   }
 }
 
+export function* deleteContactSaga({ payload }) {
+  const { id } = payload;
+  const { list } = yield select((state) => (state.contacts));
+
+  try {
+    yield ServerAPI.contacts.delete(id);
+    const newList = list.slice().filter((c) => c.id !== id);
+    yield put({ type: UPDATE_STATE, payload: { list: newList } });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export function* fetchContactsSaga() {
   const { loggedIn } = yield select((state) => (state.auth));
   if (loggedIn) {
@@ -75,5 +90,6 @@ export function* watchContactsSagas() {
   yield [
     takeEvery(CREATE_CONTACT, createContactSaga),
     takeEvery(FETCH_USER_CONTACTS, fetchContactsSaga),
+    takeEvery(DELETE_CONTACT, deleteContactSaga),
   ];
 }

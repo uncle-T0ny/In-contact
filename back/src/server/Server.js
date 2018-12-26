@@ -139,6 +139,20 @@ const init = async () => {
         const contact = await user.createContact(request.payload);
         return h.response({ contactId: contact.id });
       }
+    },
+    {
+      method: 'DELETE',
+      path: '/contacts/{id}',
+      config: { auth: 'jwt' },
+      handler: async function (request, h) {
+        const { userId } = request.auth.credentials;
+        const { id } = request.params;
+
+        const user = await User.findOne({ where: { id: userId } });
+
+        await user.removeContact(id);
+        return h.response();
+      }
     }
   ]);
 

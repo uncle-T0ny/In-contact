@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
+import ContactDetails from '../contactDetails/ContactDetails';
 import { fetchUserContacts } from '../../../ducks/contacts.duck';
 import { styles } from './styles';
 
@@ -24,30 +25,25 @@ function mapActionsToProps(state, r) {
 }
 
 class ContactList extends PureComponent {
-  componentDidMount() {
-    const { actions } = this.props;
-    actions.fetchUserContacts();
-  }
-
-  getContactItem(c) {
+  getContactItem(contact) {
     const { classes } = this.props;
 
     return (
-      <ExpansionPanel key={`contact_item_${c.id}`}>
+      <ExpansionPanel key={`contact_item_${contact.id}`}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>{c.firstName}</Typography>
+            <Typography className={classes.secondaryHeading}>{contact.firstName}</Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>{c.lastName}</Typography>
+            <Typography className={classes.secondaryHeading}>{contact.lastName}</Typography>
           </div>
           <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>{c.phone}</Typography>
+            <Typography className={classes.secondaryHeading}>{contact.phone}</Typography>
           </div>
         </ExpansionPanelSummary>
 
         <ExpansionPanelDetails className={classes.details}>
-          address details
+          <ContactDetails {...contact} phone={contact.phone} dispatch={this.props.dispatch}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )
